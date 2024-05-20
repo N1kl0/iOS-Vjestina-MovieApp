@@ -30,7 +30,17 @@ class MovieDetailsViewController: UIViewController{
     private var descriptionRectangle: UIView!
     
     
-    var movie = MovieData(movieID: 111161)//68646 468569 167260 108052 71562 111161
+    var movie: MovieData
+    
+    
+    init(movieID: Int) {
+           self.movie = MovieData(movieID: movieID)
+           super.init(nibName: nil, bundle: nil)
+       }
+       
+       required init?(coder: NSCoder) {
+           fatalError("init(coder:) has not been implemented")
+       }
     
     
 
@@ -40,8 +50,8 @@ class MovieDetailsViewController: UIViewController{
         createImageView()
         CreateDataView()
         
-//        let data = MovieUseCase().allMovies
-//        print(data)
+        let data = MovieUseCase().allMovies
+        print(data)
         
     }
     
@@ -356,40 +366,11 @@ class MovieDetailsViewController: UIViewController{
                             
                             
                         }
-                        
-                        
                     }
-                    
                 }
-                
-                
             }
-            
-            
-            
-            
         }
-        
-        
-        
-    
-        
-        
-        
-        
-        
-        
-        
         data.addSubview(descriptionRectangle)
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }//zagrada od klase
 

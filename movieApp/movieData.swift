@@ -20,6 +20,12 @@ class MovieData{
     var rating: Double?
     var categories: [MovieCategoryModel]?
     var crewMembers: [MovieCrewMemberModel]?
+    var allMovies: [MovieModel]?
+    var popularMovies: [MovieModel]?
+    var freeToWatchMovies: [MovieModel]?
+    var trendingMovies: [MovieModel]?
+    
+    
     
     init(movieID : Int){
         
@@ -35,8 +41,26 @@ class MovieData{
             rating = movieDetails.rating
             categories = movieDetails.categories
             crewMembers = movieDetails.crewMembers
+            allMovies = MovieUseCase().allMovies
+            popularMovies = MovieUseCase().popularMovies
+            freeToWatchMovies = MovieUseCase().freeToWatchMovies
+            trendingMovies = MovieUseCase().trendingMovies
+            
         }
     }
+    
+    func getMoviesFromSeries() -> [(movie: MovieModel, year: Int)] { 
+            guard let seriesName = name?.components(separatedBy: " ").first else { return [] }
+            return allMovies?.compactMap { movie in
+                if movie.name.starts(with: seriesName) {
+                    let movieData = MovieData(movieID: movie.id)
+                    if let year = movieData.year {
+                        return (movie, year)
+                    }
+                }
+                return nil
+            } ?? []
+        }
     
     
 }
